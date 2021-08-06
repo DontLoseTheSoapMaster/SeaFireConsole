@@ -1,6 +1,8 @@
 # SeaFireConsole
 Classical Console SeaFire (Java)
-      This Application was written by me in 2019. my main goal was to create a "computer" player that can beat a human. To achieve this, i create 2 logical block for computer player. I will talk about Artificial intelligence work later. Now, at first, look at the battlefield (field of the enemy) in the begining of the Game
+      This Application was written by me in 2019. my main goal was to create a "computer" player that can beat a human. 
+      To achieve this, i create 2 logical block for computer player. I will talk about Artificial intelligence work later. 
+      Now, at first, look at the battlefield (field of the enemy) in the begining of the Game
       
       N  ABCDEFGHIJ
       1  0000000000
@@ -83,7 +85,8 @@ Classical Console SeaFire (Java)
       
       "Расположение. 1 - горизонт. 0 - вертикальное" 
       
-      So u can input "0" or "1" or u'll got an error. At this stage of the game, you must position your ships on the battlefield. U'll start from the biggest, 4-Cells Ship And End this stage positioning the last 1-cell ship.
+      So u can input "0" or "1" or u'll got an error. At this stage of the game, you must position your ships on the battlefield. 
+      U'll start from the biggest, 4-Cells Ship And End this stage positioning the last 1-cell ship.
       the order of the arrangement of the ships is as follows:
       1. 4-Cell Ship
       2. 3-Cell Ship
@@ -97,7 +100,9 @@ Classical Console SeaFire (Java)
       10. 1-Cell Ship
       
       at first, u must set vertical or horizontal position of the ship. if u input "1" in the window with message "Расположение. 1 - горизонт. 0 - вертикальное" u'll set horizontal posithion, if "0"  - vertical.
-      After input that information, next u'll need set The coordinate of the first position of the ship. Format of the Coordinate - "A1" where Letter "A" - is an x coordinate,   an numer "1" - is an y coordinate. Look at the any field to understand what i'm talking about. In the game u'll see window with message:
+      After input that information, next u'll need set The coordinate of the first position of the ship. 
+      Format of the Coordinate - "A1" where Letter "A" - is an x coordinate,   an numer "1" - is an y coordinate. 
+      Look at the any field to understand what i'm talking about. In the game u'll see window with message:
       
       "ВВедите координату x(От A до J)"
       
@@ -106,7 +111,10 @@ Classical Console SeaFire (Java)
       
       "ВВедите координату y(От A до J)"
       
-      ***So now, u need to input any numer from 1 to 9 or "10", which defines the starting point of the ship's position in y. After inputing that, for Example 5, u ship will got the position. First Ship is very long, it occupies 4 cells on the field. we'v Got in example position "A5", so, if we set vertical positioning - the ship will occupies cell A5 and 3 cells lower (A6,A7,A8), if we set horizontal positioning - the ship will occupies cell A5 and 3 cells righter (B5,C5,D5).
+      ***So now, u need to input any numer from 1 to 9 or "10", which defines the starting point of the ship's position in y. 
+      After inputing that, for Example 5, u ship will got the position. First Ship is very long, it occupies 4 cells on the field. 
+      we'v Got in example position "A5", so, if we set vertical positioning - the ship will occupies cell A5 and 3 cells 
+      lower (A6,A7,A8), if we set horizontal positioning - the ship will occupies cell A5 and 3 cells righter (B5,C5,D5).
       At the stage of positioning ships the concole printed 2 fields: Field with ur ships and "CanceledField". At the start of the game that fields is empty:
       
       N  ABCDEFGHIJ
@@ -147,7 +155,11 @@ Classical Console SeaFire (Java)
       9  0000000000
       10 0000000000
       
-      So, in the first field 4 "0" was replaced 4 "1". So, it's our 4-Cell ship in the position. In the Canceled field lower, u can see a zone from A4 to E6 fully filled nummer 3. Canceled field show zones, where u can't placed ships (and this zones are marked as "3"). So, how u can see, after positioning ship on the certain place - next ship can't cross zone placed ship and zone around that ship. you must position every ship  in such a way that all the cells that it occupies fall into "0"
+      So, in the first field 4 "0" was replaced 4 "1". So, it's our 4-Cell ship in the position. 
+      In the Canceled field lower, u can see a zone from A4 to E6 fully filled nummer 3. 
+      Canceled field show zones, where u can't placed ships (and this zones are marked as "3"). 
+      So, how u can see, after positioning ship on the certain place - next ship can't cross zone placed ship and zone around that ship. 
+      you must position every ship  in such a way that all the cells that it occupies fall into "0"
       
       At the end of this stage 2 Fields will looking, for example, such way:
       
@@ -196,13 +208,18 @@ Classical Console SeaFire (Java)
       if it replaced from 0 to 6 - That's mean, u'r destroy the ship. Zone around ship will replace from any value to 2
       
       How Computer works?
-      How i say earlier, computer have 2 logical blocks. First logical blocks activate, when computer need to finish off the damaged ship, other - in another situation. Second block is activate in the begining of the game. And this block have 2 steps:
+      How i say earlier, computer have 2 logical blocks. First logical blocks activate, when computer need to finish off the damaged ship, other
+      - in another situation. Second block is activate in the begining of the game. And this block have 2 steps:
       1. Generating Random Coordinates
-      2. Get The Value From AnaliseField, given as argument the generated coordinates. If the getting value is "3" then GoTo Step 1. If The Value is "0" - computer'll made shoot in that coordinates.
+      2. Get The Value From AnaliseField, given as argument the generated coordinates. If the getting value is "3" then GoTo Step 1. 
+      If The Value is "0" - computer'll made shoot in that coordinates.
       If the computer missed or damaged the computer, the coordinate in AnaliseField will replace from 0 to 3
       If the computer destroy the ship - then all cells of a ship, and zone around ship will get value 3.
       
-      AnaliseField containing information about where computer can make shoot. It's collect all information during the game about where computer shoot, damaged of destroy computer. But this field also changes depending on the size of the largest ship you have not sunk yet. For Example, when the game begining, AnaliseField is looking SuchWay:
+      AnaliseField containing information about where computer can make shoot. 
+      It's collect all information during the game about where computer shoot, damaged of destroy computer. 
+      But this field also changes depending on the size of the largest ship you have not sunk yet. 
+      For Example, when the game begining, AnaliseField is looking SuchWay:
       
       N  ABCDEFGHIJ
       1  0333033303
@@ -216,8 +233,17 @@ Classical Console SeaFire (Java)
       9  0333033303
       10 3033303330
       
-      Enemy didn't make any shoot yet, but he have already 25 possible points for shoot (but the field contain 100 points). This is special sample for searching 4-cell ship. Thus, Analise Fild contain as information about where computer shoot, damaged of destroy computer,and this information is summed up with information from the template, forming a field where the computer can shoot, and where it cannot. Sample for 3-Cell, 2-Cell ships is different from 4-Cell Ship sample, and they contain much more points for shooting. So, When computer destroy 4-cell ship, the sample in analisefield is switches to 3-Cell ship sample and so on.
+      Enemy didn't make any shoot yet, but he have already only 25 possible points for shoot (but the field contain 100 points). 
+      This is special sample for searching 4-cell ship. Thus, Analise Fild contain as information about where computer shoot, 
+      damaged of destroy computer,and this information is summed up with information from the template, 
+      forming a field where the computer can shoot, and where it cannot. 
+      Sample for 3-Cell, 2-Cell ships is different from 4-Cell Ship sample, and they contain much more points for shooting. 
+      So, When computer destroy 4-cell ship, the sample in analisefield is switches to 3-Cell ship sample and so on.
       
-      
-      1. If nothing is happen then computer made a random shoot.
-          1.1. Random Shoot is not fully Random. Computer, obviously will shoot at "0 
+      Well, let's get back and discuss first logical block. As i say write earlier: this block activate when computer need 
+      to destroy the damaged ship. This block discriped by a lot of raws of the code and it's not so easy to tell how it's
+      works. Shortly, block trying to make shoots around the first hit on the ship, remeber it to make this operation
+      for the minimum number of shots. You can look at code to see how it's works.
+
+      I play sometimes this game and win about 70-75% of the games. Maybe algoritm is not so strong, but it's pretty well, 
+      and quietly save felling of challenge
