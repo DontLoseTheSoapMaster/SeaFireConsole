@@ -1,18 +1,18 @@
 Classical Console SeaFire (Java)
-      Я создал это приложение в 2019 году. Моей основной целью было - 
-      Создание ИИ, способного потягаться с человеком. ИИ в программе состоит
-      Из двух логических блоков. Позже я объясню на пальцах, как он работает но для 
-      Начала поговорим о геймплее.
+Я создал это приложение в 2019 году. Моей основной целью было - 
+Создание ИИ, способного потягаться с человеком. ИИ в программе состоит
+Из двух логических блоков. Позже я объясню на пальцах, как он работает но для 
+Начала поговорим о геймплее.
 
-     Игра полностью запускается в консоли. У вас должен быть установлена 
-     Java, желательно не ниже 8 версии. Запуск осуществляется
-     С консоли, а именно класса SeaFire. В консоли это будет 
-     Выглядит следующим образом:
+Игра полностью запускается в консоли. У вас должен быть установлена 
+Java, желательно не ниже 8 версии. Запуск осуществляется
+С консоли, а именно класса SeaFire. В консоли это будет 
+Выглядит следующим образом:
 
      >%путь до файла% Java SeaFire
 
-     Пройдемся вкратце что вы там увидите. Ниже представлен пример
-     Одного из игровых полей:
+Пройдемся вкратце что вы там увидите. Ниже представлен пример
+Одного из игровых полей:
       
       N  ABCDEFGHIJ
       1  0000000000
@@ -122,29 +122,14 @@ Classical Console SeaFire (Java)
 
       "ВВедите координату x(От A до J)"
       
-So, u need to input Capital letter (from A to J), which defines the start
+После ввода буквы вы увидите сообщение для ввода цифры
       
-      "ВВедите координату y(От A до J)"
+      "ВВедите координату y(От 1 до 10)"
       
-***So now, u need to input any numer from 1 to 9 or "10", which defines the starting point of the ship's position in y. 
-After inputing that, for Example 5, u ship will got the position. First Ship is very long, it occupies 4 cells on the field. 
-we'v Got in example position "A5", so, if we set vertical positioning - the ship will occupies cell A5 and 3 cells 
-lower (A6,A7,A8), if we set horizontal positioning - the ship will occupies cell A5 and 3 cells righter (B5,C5,D5).
-At the stage of positioning ships the concole printed 2 fields: Field with ur ships and "CanceledField". At the start of the game that fields is empty:
-      
-      N  ABCDEFGHIJ
-      1  0000000000
-      2  0000000000
-      3  0000000000
-      4  0000000000
-      5  0000000000
-      6  0000000000
-      7  0000000000
-      8  0000000000
-      9  0000000000
-      10 0000000000
-      
-After inputing ship into positioning, for Example - horizontal A5, the  fields will change. The fields now looks like this:
+После ввода цифры - корабль займет положение. Корабль занимает положение слева-направо, если вы вырали в начале горизонтальную
+позицию, или сверху вниз, если вы выбрали вертикальную. Т.е если мы введем координату A5 и выберем горизонтальное положение,
+то первый 4-х палубный корабль займет позиции A5,B5,C5,D5 если же выберем вертикальное положение, то тогда - A5,A6,A7,A8
+Для примера: После ввода координаты A5, при выборе горизонтального положения программа выведет следующее:
       
       N  ABCDEFGHIJ
       1  0000000000
@@ -157,7 +142,7 @@ After inputing ship into positioning, for Example - horizontal A5, the  fields w
       8  0000000000
       9  0000000000
       10 0000000000
-      Cancel Field:
+      Запретное поле игрока:
       N  ABCDEFGHIJ
       1  0000000000
       2  0000000000
@@ -170,13 +155,15 @@ After inputing ship into positioning, for Example - horizontal A5, the  fields w
       9  0000000000
       10 0000000000
       
-So, in the first field 4 "0" was replaced 4 "1". So, it's our 4-Cell ship in the position. 
-In the Canceled field lower, u can see a zone from A4 to E6 fully filled nummer 3. 
-Canceled field show zones, where u can't placed ships (and this zones are marked as "3"). 
-So, how u can see, after positioning ship on the certain place - next ship can't cross zone placed ship and zone around that ship. 
-you must position every ship  in such a way that all the cells that it occupies fall into "0"
+Как вы видите, в первом поле 4 нуля заменились четыремя единицами. Это теперь пложение, который занял наш четырехпалубник. 
+Во втором поле вы видите, что нули заменились тройками в зоне от А4 до Е6. Второе поле называется "запретное поле игрока".
+Запретное поле игрока показывает зоны, с которыми не может пересекаться следующий корабль при установке на поле.
+Таким образом, если вы установите следующий трехпалубник вертикально, скажме в точку D2 - то программа выдаст ошибку
+и предложит по новой указать позицию 3-х палубника, потому что, при таких условиях, трехпалубник займет позицию: D2,D3,D4,
+а D4 уже соответствует координате запретной зоны. Т.е. каждый новый корабль должен устанавливаться в туда, где
+координаты в "запретном поле игрока" соответствуют 0.
       
-At the end of this stage 2 Fields will looking, for example, such way:
+В конце стадии установки кораблей, поля будут выглядить следующим образом:
       
       N  ABCDEFGHIJ
       1  0111010000
@@ -202,7 +189,7 @@ At the end of this stage 2 Fields will looking, for example, such way:
       9  3333333330
       10 0003333330
       
-Next Stage - Game. U'll see only enemy's field. An At the begining it's looking such way:
+После установки всех кораблей начинается игра. В начале вы видите пустое поле. Это поле противника, куда вы будете делать выстрелы:
       
       N  ABCDEFGHIJ
       1  0000000000
@@ -216,11 +203,12 @@ Next Stage - Game. U'll see only enemy's field. An At the begining it's looking 
       9  0000000000
       10 0000000000
       
-The shoot is making same way, that was descriped earlier (that place in text marked ***). When u make shoot, the coordinate, where u shooting will change:
+Выстрел совершается вводом координаты, совершенно тем же способом, который мы описывали ранее. После того, как вы указали координаты и сделали
+выстрел произойдут следующие изменения в координате, которую вы указали:
       
-      If it replaced from 0 to 3 - That's mean, u'r are missing and next shoot'll made enemy
-      if it replaced from 0 to 4 - That's mean, u'r hit the ship. But! It's not destroyed yet! And u'll got additional shoot
-      if it replaced from 0 to 6 - That's mean, u'r destroy the ship. Zone around ship will replace from any value to 2
+      если она изменится с 0 на 3 - это означает, что вы промахнулись и следющий ход за противником
+      если она изменится с 0 на 4 - это означает, что вы попали в корабль, но не уничтожили его
+      если она изменится с 0 на 6 - это означает, что вы уничтожии корабль. При этом зона вокруг корабля получит значения 2
       
 How Computer works?
 How i say earlier, computer have 2 logical blocks. First logical blocks activate, when computer need to finish off the damaged ship, other
