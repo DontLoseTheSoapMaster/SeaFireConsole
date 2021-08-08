@@ -210,19 +210,24 @@ Java, желательно не ниже 8 версии. Запуск осуще
       если она изменится с 0 на 4 - это означает, что вы попали в корабль, но не уничтожили его
       если она изменится с 0 на 6 - это означает, что вы уничтожии корабль. При этом зона вокруг корабля получит значения 2
       
-How Computer works?
-How i say earlier, computer have 2 logical blocks. First logical blocks activate, when computer need to finish off the damaged ship, other
-- in another situation. Second block is activate in the begining of the game. And this block have 2 steps:
-1. Generating Random Coordinates
-2. Get The Value From AnaliseField, given as argument the generated coordinates. If the getting value is "3" then GoTo Step 1. 
-If The Value is "0" - computer'll made shoot in that coordinates.
-If the computer missed or damaged the computer, the coordinate in AnaliseField will replace from 0 to 3
-If the computer destroy the ship - then all cells of a ship, and zone around ship will get value 3.
-      
-AnaliseField containing information about where computer can make shoot. 
-It's collect all information during the game about where computer shoot, damaged of destroy computer. 
-But this field also changes depending on the size of the largest ship you have not sunk yet. 
-For Example, when the game begining, AnaliseField is looking SuchWay:
+Как Работает ИИ?
+Как я сказал ранее, компьютер состоит из двух логических блоков. Певый, активируется, когда компьютеру необходимо "добить" поврежденный
+корабль, а второй работает во всех других ситуациях. Второй блок, соответственно, работает уже с самого начала игры
+и его работа включает два этапа:
+
+1. Генерирация рандомных координат
+2. По полученной координате компьютер получает конкретное значение из поля Analise Field. Если это значение равно 3, то
+мы обратно возвращаемся к шагу один, если 0, то совершается выстрел по соответствующей координате
+Если компьютер промахнулся или попал (но не уничтожил корабль), то 0 на анализФилде заменится тройкой 
+(несложно догадаться что, таким образом, компьютер по
+этой координате, больше не сможет совершит выстрел) 
+Если компьютер уничтожет корабль, то все клетки, которые занимал корабль, а также клетки вокруг корабля
+получат значение 3.
+
+AnaliseField содержит информацию о том, куда ИИ может сделать выстрел. АнализФиелд собирает всю информацию в процессе игры
+о том, куда компьютер стрелял, где он повредил и уничтожил ваши корабли. Но то, как выглядит это
+поле также зависит от того, как самый большой корабль остался у вас не уничтоженным. Ниже пример
+того, как выглядит AnaliseField в начале игры:
       
       N  ABCDEFGHIJ
       1  0333033303
@@ -235,18 +240,23 @@ For Example, when the game begining, AnaliseField is looking SuchWay:
       8  3330333033
       9  0333033303
       10 3033303330
-      
-Enemy didn't make any shoot yet, but he have already only 25 possible points for shoot (but the field contain 100 points). 
-This is special sample for searching 4-cell ship. Thus, Analise Fild contain as information about where computer shoot, 
-damaged of destroy computer,and this information is summed up with information from the template, 
-forming a field where the computer can shoot, and where it cannot. 
-Sample for 3-Cell, 2-Cell ships is different from 4-Cell Ship sample, and they contain much more points for shooting. 
-So, When computer destroy 4-cell ship, the sample in analisefield is switches to 3-Cell ship sample and so on.
 
-Well, let's get back and discuss first logical block. As i say write earlier: this block activate when computer need 
-to destroy the damaged ship. This block discriped by a lot of raws of the code and it's not so easy to tell how it's
-works. Shortly, block trying to make shoots around the first hit on the ship, remeber it to make this operation
-for the minimum number of shots. You can look at code to see how it's works.
+Враг еще не сделал выстрел, но при этом на анализфилде у врага только 25 доступных координат для выстрела(хотя всего
+на поле таких координат - 100). То что вы видите - это наложенный на анализФиелд(в котором действительно 100 свободных
+точек для выстрела) шаблон для поиска 4-х Палубника. Он сделан таким образом, чтобы противник гарантировано попал
+в 4-х палубник (при этом совершенно не обязательно, что он может попасть в корабли меньшего размера). Сделав все 25 выстрелов
+по этому шаблону - ИИ гарантировано попадет в 4-х палубник. Когда 4-х палубник будет уничтожен, шаблон измениться и будет
+выглядить следующим по-другому (он будет выглядить так, чтобы гарантировано попасть во все трехпалубники). Таким образом
+АнализФиелд это поле, по которуму ориентируется ИИ, куда он может выстрелить и состоит оно из шаблона для выстрела, с наложенной
+картой промахов, попаданий в корабли и уничтоженных кораблей на этот шаблон. Именно так и работает второй логический
+блок.
 
-I play sometimes this game and win about 70-75% of the games. Maybe algoritm is not so strong, but it's pretty well, 
-and quietly save felling of challenge
+вернемся к первому логическому блоку. Я я сказал ранее: этот блок активируется когда компьютер должен уничтожить ранее
+поврежденный им корабль. Этот блок описывается довольно большим количеством строк кода и рассказать подробно о том,
+как он работает - довольно сложно. Если коротко, то этот блок пытается делать выстрелы вокруг попадания, запоминая промахи
+и попадания, чтобы этот процесс добивания был максимально эффективным, за минимально возможное количество шагов.
+можете изучить код, чтобы понять, как это работает.
+
+Я иногда играю в эту игру и выигрываю около 70-75% игры. Возможно вам покажется что алгоритм не слишком сильный и 
+имеет определенные недостатки, но, как мне кажется, он достаточно хорошо сохраняет чувство "Игры" и ничего не делая,
+на расслабоне его не победить
